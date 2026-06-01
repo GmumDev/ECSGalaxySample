@@ -4,6 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace Galaxy
 {
@@ -12,6 +13,9 @@ namespace Galaxy
     public partial struct GameCameraSystem : ISystem
     {
         private Unity.Mathematics.Random _random;
+        // XR 디바이스 캐시 (클래스 필드)
+        private InputDevice _leftHand;
+        private InputDevice _rightHand;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state)
@@ -25,19 +29,26 @@ namespace Galaxy
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            _leftHand.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 leftStick);   // 이동 XZ
+            _leftHand.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftTrigger); // 상승 (E 대체)
+            _leftHand.TryGetFeatureValue(CommonUsages.gripButton, out bool leftGrip);    // 하강 (Q 대체)
+            _rightHand.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 rightStick);  // 시선 회전
+            _rightHand.TryGetFeatureValue(CommonUsages.trigger, out float rightTrigger);// Zoom (아날로그)
+            _rightHand.TryGetFeatureValue(CommonUsages.gripButton, out bool rightGrip);   // Sprint
+            _rightHand.TryGetFeatureValue(CommonUsages.primaryButton, out bool aButton);
             // Collect input
             CameraInputs cameraInputs = new CameraInputs
             {
                 Move = new float3(
-                    (Input.GetKey(KeyCode.D) ? 1f : 0f) + (Input.GetKey(KeyCode.A) ? -1f : 0f),
-                    (Input.GetKey(KeyCode.E) ? 1f : 0f) + (Input.GetKey(KeyCode.Q) ? -1f : 0f),
-                    (Input.GetKey(KeyCode.W) ? 1f : 0f) + (Input.GetKey(KeyCode.S) ? -1f : 0f)),
+                        leftStick.x,                                    // A/D → 왼손 Thumbstick X
+                        (leftTrigger ? 1f : 0f) + (leftGrip ? -1f : 0f), // E/Q → 왼손 Trigger/Grip
+                        leftStick.y),                                   // W/S → 왼손 Thumbstick Y
                 Look = new float2(
-                    Input.GetAxis("Mouse X"),
-                    Input.GetAxis("Mouse Y")),
-                Zoom = -Input.mouseScrollDelta.y,
-                Sprint = Input.GetKey(KeyCode.LeftShift),
-                SwitchMode = Input.GetKeyDown(KeyCode.Z),
+                        rightStick.x,                                   // Mouse X → 오른손 Thumbstick X
+                        rightStick.y),                                  // Mouse Y → 오른손 Thumbstick Y
+                Zoom = rightTrigger,                                // ScrollWheel → 오른손 Trigger 아날로그
+                Sprint = rightGrip,                                 // LeftShift → 오른손 Grip
+                SwitchMode = aButton,                               // Z → 오른손 A버튼
             };
             cameraInputs.Move = math.normalizesafe(cameraInputs.Move) *
                                 math.saturate(math.length(cameraInputs.Move)); // Clamp move inputs magnitude to 1

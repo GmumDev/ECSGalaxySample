@@ -67,38 +67,7 @@ MonoBehaviour:
   m_UIInfos: {fileID: 114340500867371532}
   m_CustomAttributes: []
   m_ParameterInfo:
-  - name: SpawnRequestsCount
-    path: SpawnRequestsCount
-    tooltip: 
-    space: -1
-    spaceable: 0
-    sheetType: m_Int
-    realType: Int32
-    defaultValue:
-      m_Type:
-        m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
   - name: SpawnRequestsBuffer
-    path: 
-    tooltip: 
-    space: -1
-    spaceable: 0
-    sheetType: 
-    realType: GraphicsBuffer
-    defaultValue:
-      m_Type:
-        m_SerializableType: 
-      m_SerializableObject: 
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: DatasBuffer
     path: 
     tooltip: 
     space: -1
@@ -125,6 +94,37 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"x":5000.0,"y":5000.0,"z":5000.0}'
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: DatasBuffer
+    path: 
+    tooltip: 
+    space: -1
+    spaceable: 0
+    sheetType: 
+    realType: GraphicsBuffer
+    defaultValue:
+      m_Type:
+        m_SerializableType: 
+      m_SerializableObject: 
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: SpawnRequestsCount
+    path: SpawnRequestsCount
+    tooltip: 
+    space: -1
+    spaceable: 0
+    sheetType: m_Int
+    realType: Int32
+    defaultValue:
+      m_Type:
+        m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -162,7 +162,7 @@ MonoBehaviour:
     enumValues: []
     descendantCount: 0
   m_ImportDependencies: []
-  m_GraphVersion: 18
+  m_GraphVersion: 19
   m_ResourceVersion: 1
   m_SubgraphDependencies: []
   m_CategoryPath: 
@@ -178,10 +178,6 @@ VisualEffectResource:
     m_RendererSettings:
       motionVectorGenerationMode: 0
       shadowCastingMode: 0
-      rayTracingMode: 0
-      receiveShadows: 0
-      reflectionProbeUsage: 0
-      lightProbeUsage: 0
     m_CullingFlags: 3
     m_UpdateMode: 0
     m_PreWarmDeltaTime: 0.05
@@ -212,7 +208,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615708}
   m_ExposedName: Alpha
   m_Exposed: 0
-  m_Order: 4
+  m_Order: 0
   m_Category: 
   m_Min:
     m_Type:
@@ -473,7 +469,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615892}
   m_ExposedName: Bounds
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 2
   m_Category: 
   m_Min:
     m_Type:
@@ -1495,7 +1491,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616209}
   m_ExposedName: DatasBuffer
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 3
   m_Category: 
   m_Min:
     m_Type:
@@ -1576,7 +1572,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616213}
   m_ExposedName: SpawnRequestsCount
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 4
   m_Category: 
   m_Min:
     m_Type:
@@ -2215,6 +2211,7 @@ MonoBehaviour:
   sortingPriority: 0
   m_SubOutputs:
   - {fileID: 8926484042661616612}
+  useBaseColorMap: 3
   colorMapping: 0
   uvMode: 3
   flipbookLayout: 0

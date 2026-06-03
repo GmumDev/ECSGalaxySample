@@ -29,6 +29,15 @@ namespace Galaxy
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            if (!_leftHand.isValid || !_rightHand.isValid)
+            {
+                Debug.Log($"LeftHand valid: {_leftHand.isValid}");
+                Debug.Log($"RightHand valid: {_rightHand.isValid}");
+                _leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+                _rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+                return; // 이번 프레임은 입력 스킵
+            }
+
             _leftHand.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 leftStick);   // 이동 XZ
             _leftHand.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftTrigger); // 상승 (E 대체)
             _leftHand.TryGetFeatureValue(CommonUsages.gripButton, out bool leftGrip);    // 하강 (Q 대체)
